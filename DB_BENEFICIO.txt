@@ -1,0 +1,67 @@
+
+create database db_beneficio;
+
+create table db_beneficio.agricultores(
+	dpi_agricultor numeric(13) primary key,
+    nombre_agricultor varchar(50) not null,
+	correo_agricultor varchar(50) not null,
+	pass varchar(50) not null,
+    estado varchar(30) default 'Registrado',
+    fecha_creacion timestamp default current_timestamp
+);
+
+
+create table db_beneficio.piloto(
+	licencia numeric(10) primary key,
+    nombre_piloto varchar(50) not null,
+	estado varchar(30) default 'Pendiente',
+    fecha_creacion timestamp default current_timestamp
+);
+
+
+create table db_beneficio.vehiculo(
+	placa varchar(10) primary key,
+    tipo_vehiculo varchar(50) not null,
+	estado varchar(30) default 'Pendiente',
+    fecha_creacion timestamp default current_timestamp
+);
+
+
+create table db_beneficio.cargamento(
+	id_cargamento varchar(10) primary key, 
+	agricultor_dpi numeric(13) not null,
+	nombre varchar(50) not null,
+	tipo_cafe varchar(30) not null,
+    	cant_parcialidad int not null,
+    	peso_total varchar(30) not null,
+    	licencia_piloto numeric(10) not null,
+	piloto_nombre varchar(50) not null,
+	vehiculo_placa varchar(10) not null,
+	tipo_vehiculo varchar(50) not null,
+	estado_cargamento varchar(30) default 'Pendiente',
+    	estado_cuenta varchar(30) default 'Pendiente',
+    	mensaje varchar(50) default 'Pendiente',
+    	fecha_creacion timestamp default current_timestamp,
+    	FOREIGN KEY (agricultor_dpi) REFERENCES agricultores(dpi_agricultor),
+	FOREIGN KEY (licencia_piloto) REFERENCES piloto(licencia),
+	FOREIGN KEY (vehiculo_placa) REFERENCES vehiculo(placa)
+);
+
+
+create table db_beneficio.userbeneficio(
+	dpi_usuario numeric(13) primary key,
+    nombre varchar(50) not null,
+    correo varchar(50) not null,
+    pass varchar(50) not null,
+    rol varchar(50) not null,
+    fecha_creacion timestamp default current_timestamp
+);
+
+
+create table db_beneficio.cuenta(
+	cargamento_id varchar(10) primary key,
+	estado_cuenta varchar(30) default 'Pendiente',
+	mensaje varchar(50) default 'Pendiente',
+    	fecha_creacion timestamp default current_timestamp,
+	FOREIGN KEY (cargamento_id) REFERENCES cargamento(id_cargamento)
+);

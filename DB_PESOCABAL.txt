@@ -1,0 +1,32 @@
+create database db_pesocabal;
+
+
+create table db_pesocabal.userpesocabal(
+	dpi_userpeso numeric(13) primary key,
+    nombre varchar(50) not null,
+    correo varchar(50) not null,
+    pass varchar(50) not null,
+    fecha_creacion timestamp default current_timestamp
+);
+
+
+select * from db_pesocabal.pesaje;
+create table db_pesocabal.pesaje(
+	id_pesaje int auto_increment primary key,
+	id_cargamento varchar(10) not null,
+	no_parcialidad int not null,
+	peso_parcialidad varchar(30) not null,
+	fecha_creacion timestamp default current_timestamp
+);
+
+
+-- tabla de peso total
+create table db_pesocabal.pesaje_total(
+	id_cargamento varchar(10) primary key,
+	cant_parcialidades int not null,
+	peso_total varchar(50) not null,
+	tolerancia varchar(30) not null,
+    fecha_creacion timestamp default current_timestamp
+);
+
+
